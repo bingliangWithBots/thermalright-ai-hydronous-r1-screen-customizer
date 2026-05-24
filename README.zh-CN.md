@@ -1,5 +1,7 @@
 # ThermalRight AI HydroNous R1 屏幕自定义工具
 
+[English documentation](README.md)
+
 这是一个面向 ThermalRight AI HydroNous R1 风格 USB LCD 小屏，以及兼容 ChiZhu / GrandVision USBDisplay 协议面板的社区工具。
 
 本项目包含 Linux `usbfs` 驱动、媒体播放脚本、低功耗预解码 MJPEG 播放模式，以及 systemd 开机自启模板。
@@ -135,10 +137,6 @@ sudo udevadm trigger
 
 不要同时写 `After=multi-user.target` 和 `WantedBy=multi-user.target`，这可能导致启动排序等待。本项目的 service 等待本地文件系统和 udev settle，不等待 multi-user.target 自身完成。
 
-## English documentation
-
-See [README.md](README.md).
-
 ## License
 
-MIT
+GPL-3.0-only。详见 [LICENSE](LICENSE)。

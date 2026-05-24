@@ -1,5 +1,7 @@
 # ThermalRight AI HydroNous R1 Screen Customizer
 
+[中文文档](README.zh-CN.md)
+
 Community tooling for customizing the USB LCD screen used by ThermalRight AI HydroNous R1-style coolers and compatible ChiZhu / GrandVision USBDisplay panels.
 
 The project provides a Linux `usbfs` driver, media playback helpers, a low-power predecoded-MJPEG playback mode, and a systemd startup service template.
@@ -135,10 +137,6 @@ Some panels stop answering the info-query read after a failed or overly fast str
 
 Do not order the service with both `After=multi-user.target` and `WantedBy=multi-user.target`; that can leave it waiting at boot. The included service waits for local files and udev settle instead.
 
-## Chinese documentation
-
-See [README.zh-CN.md](README.zh-CN.md).
-
 ## License
 
-MIT
+GPL-3.0-only. See [LICENSE](LICENSE).
