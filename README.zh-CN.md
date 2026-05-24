@@ -50,8 +50,8 @@ lsusb -d 87ad:70db -v
 sudo apt update
 sudo apt install -y git python3 python3-pip ffmpeg
 python3 -m pip install --user pillow
-git clone https://github.com/bingliangWithBots/thermalright-ai-hydronous-r1-screen-customizer.git
-cd thermalright-ai-hydronous-r1-screen-customizer
+git clone https://github.com/bingliang-zh/Thermalright-AI-HydroNous-R1-screen-customizer.git
+cd Thermalright-AI-HydroNous-R1-screen-customizer
 sudo ./scripts/hydronous_usbdisplay.py probe
 sudo ./scripts/hydronous_usbdisplay.py test
 ```
