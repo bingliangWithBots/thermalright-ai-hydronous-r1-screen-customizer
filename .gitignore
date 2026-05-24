@@ -1,9 +1,9 @@
 __pycache__/
 *.pyc
 *.mp4
-!media/preview.mp4
 *.mjpg
 *.jpg
 *.jpeg
+!media/preview.gif
 *.png
 .DS_Store

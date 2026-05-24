@@ -8,7 +8,7 @@ The project provides a Linux `usbfs` driver, media playback helpers, a low-power
 
 ## Preview
 
-[MP4 preview](media/preview.mp4)
+![Screen preview](media/preview.gif)
 
 ## Features
 

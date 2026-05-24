@@ -8,7 +8,7 @@
 
 ## Preview
 
-[MP4 preview](media/preview.mp4)
+![屏幕预览](media/preview.gif)
 
 ## 功能
 
