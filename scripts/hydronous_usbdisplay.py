@@ -98,7 +98,7 @@ class UsbDisplay:
                 f"SUBSYSTEM==\"usb\", ATTR{{idVendor}}==\"87ad\", ATTR{{idProduct}}==\"70db\", MODE=\"0660\", GROUP=\"plugdev\"\n"
                 f"EOF\n"
                 f"  sudo udevadm control --reload-rules && sudo udevadm trigger\n"
-                f"Then unplug/replug the display."
+                f"If permissions are still stale, restart the playback service or reboot the host."
             )
         fcntl.ioctl(self.fd, USBDEVFS_CLAIMINTERFACE, struct.pack("I", IFACE))
 
@@ -143,7 +143,7 @@ class UsbDisplay:
             resp = self.bulk_read(EP_IN, HANDSHAKE_READ_SIZE, 1000)
         except TimeoutError:
             # Some ChiZhu panels stop answering the info-query endpoint after a
-            # previous video stream until unplug/replug, but still accept JPEG
+            # previous video stream until the USB device/bus is reset, but still accept JPEG
             # frame writes. Fall back to the common 960x320 resolution so
             # playback can recover without a physical USB reset.
             print("warning: handshake read timed out; assuming 960x320 and continuing", file=sys.stderr)

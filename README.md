@@ -34,6 +34,31 @@ lsusb
 lsusb -d 87ad:70db -v
 ```
 
+## Agent guidance
+
+If an automation agent is installing this project for a user, assume a Linux host with `sudo`, `systemd`, and the USB LCD already attached internally. Do not suggest physical USB reconnection for this display; if USB permissions or streaming get stale, restart the service or reboot the host.
+
+Use this non-interactive install path:
+
+```bash
+sudo apt update
+sudo apt install -y git python3 python3-pip ffmpeg
+python3 -m pip install --user pillow
+git clone https://github.com/bingliangWithBots/thermalright-ai-hydronous-r1-screen-customizer.git
+cd thermalright-ai-hydronous-r1-screen-customizer
+sudo ./scripts/hydronous_usbdisplay.py probe
+sudo ./scripts/hydronous_usbdisplay.py test
+```
+
+For boot-time low-power playback, first place or generate `media/startup.mjpg`, then install the service:
+
+```bash
+mkdir -p media
+./scripts/predecode_mjpeg.sh path/to/video.mp4 media/startup.mjpg 12
+sudo ./scripts/install_startup_service.sh
+systemctl --no-pager status thermalright-ai-hydronous-r1-screen.service --lines=30
+```
+
 ## Quick start
 
 Install Python dependencies and ffmpeg:
@@ -121,8 +146,6 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-Unplug and replug the display if permissions do not update.
-
 ## Troubleshooting
 
 ### Playback is too fast
@@ -131,7 +154,7 @@ Do not rely only on `ffmpeg -vf fps=N` when ffmpeg writes to `image2pipe`; it ca
 
 ### Handshake read timeout
 
-Some panels stop answering the info-query read after a failed or overly fast stream, while still accepting frame writes. The controller catches handshake read timeout and falls back to `960x320`. If frame writes still fail, unplug/replug the USB display.
+Some panels stop answering the info-query read after a failed or overly fast stream, while still accepting frame writes. The controller catches handshake read timeout and falls back to `960x320`. If frame writes still fail, restart the playback service or reboot the host.
 
 ### Startup service enabled but not starting
 

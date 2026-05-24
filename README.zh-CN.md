@@ -34,6 +34,31 @@ lsusb
 lsusb -d 87ad:70db -v
 ```
 
+## Agent guidance
+
+如果自动化 agent 要为用户安装本项目，默认目标是一台带 `sudo`、`systemd`、并且 USB LCD 已经内置连接好的 Linux 主机。不要建议用户对这个屏幕做物理 USB 重连；如果 USB 权限或播放状态异常，优先重启服务或重启主机。
+
+推荐使用下面的非交互安装路径：
+
+```bash
+sudo apt update
+sudo apt install -y git python3 python3-pip ffmpeg
+python3 -m pip install --user pillow
+git clone https://github.com/bingliangWithBots/thermalright-ai-hydronous-r1-screen-customizer.git
+cd thermalright-ai-hydronous-r1-screen-customizer
+sudo ./scripts/hydronous_usbdisplay.py probe
+sudo ./scripts/hydronous_usbdisplay.py test
+```
+
+如果要配置低功耗开机播放，先放置或生成 `media/startup.mjpg`，再安装服务：
+
+```bash
+mkdir -p media
+./scripts/predecode_mjpeg.sh path/to/video.mp4 media/startup.mjpg 12
+sudo ./scripts/install_startup_service.sh
+systemctl --no-pager status thermalright-ai-hydronous-r1-screen.service --lines=30
+```
+
 ## 快速开始
 
 安装 Python 依赖和 ffmpeg：
@@ -121,8 +146,6 @@ sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-如果权限没有立即变化，请拔插一次小屏。
-
 ## 常见问题
 
 ### 播放速度太快
@@ -131,9 +154,9 @@ sudo udevadm trigger
 
 ### handshake 读取超时
 
-某些面板在失败或过快的上一次 stream 后，会继续枚举在 USB 上，但不再回复 info-query 读取。控制器会在 handshake read timeout 时 fallback 到 `960x320`。如果后续发送帧也失败，请拔插 USB 小屏。
+某些面板在失败或过快的上一次 stream 后，会继续枚举在 USB 上，但不再回复 info-query 读取。控制器会在 handshake read timeout 时 fallback 到 `960x320`。如果后续发送帧也失败，请重启播放服务或重启主机。
 
-### systemd 服务 enable 了但开机没��动
+### systemd 服务 enable 了但开机没启动
 
 不要同时写 `After=multi-user.target` 和 `WantedBy=multi-user.target`，这可能导致启动排序等待。本项目的 service 等待本地文件系统和 udev settle，不等待 multi-user.target 自身完成。
 
