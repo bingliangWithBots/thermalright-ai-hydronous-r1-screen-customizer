@@ -6,6 +6,10 @@
 
 本项目包含 Linux `usbfs` 驱动、媒体播放脚本、低功耗预解码 MJPEG 播放模式，以及 systemd 开机自启模板。
 
+## Preview
+
+[MP4 preview](media/preview.mp4)
+
 ## 功能
 
 - 纯 Python + Linux `usbfs` 原始 USB bulk 通讯，不依赖 PyUSB/libusb。

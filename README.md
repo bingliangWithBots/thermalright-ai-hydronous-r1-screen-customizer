@@ -6,6 +6,10 @@ Community tooling for customizing the USB LCD screen used by ThermalRight AI Hyd
 
 The project provides a Linux `usbfs` driver, media playback helpers, a low-power predecoded-MJPEG playback mode, and a systemd startup service template.
 
+## Preview
+
+[MP4 preview](media/preview.mp4)
+
 ## Features
 
 - Raw USB bulk driver with no PyUSB/libusb dependency.
