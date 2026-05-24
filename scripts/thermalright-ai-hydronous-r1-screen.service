@@ -1,0 +1,16 @@
+[Unit]
+Description=ThermalRight AI HydroNous R1 screen customizer startup media
+Wants=systemd-udev-settle.service
+After=local-fs.target systemd-udev-settle.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/bin/sleep 3
+ExecStart=/opt/thermalright-ai-hydronous-r1-screen/scripts/play_screen.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
